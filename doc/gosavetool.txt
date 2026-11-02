@@ -1,0 +1,64 @@
+*gosavetool.txt*  Subtitles, word count and case changes for Neovim
+
+GoSaveTool                                                        *gosavetool*
+
+Convert SRT and WebVTT, shift and repair subtitle timings, count words with
+social media and SEO character limits, and change the case of text.
+Everything runs inside Neovim, offline.
+
+Made by GoSaveTool, free online tools for creators: https://www.gosavetool.com/
+
+==============================================================================
+COMMANDS                                                       *:GoSaveTool*
+
+:[range]GoSaveTool count                               *:GoSaveTool-count*
+        Words, characters, sentences, lines and reading time of the visual
+        selection, the [range] or the buffer, with the characters left for X
+        posts, Instagram and TikTok captions, YouTube titles and descriptions,
+        LinkedIn posts, Pinterest descriptions, SEO titles and meta
+        descriptions.
+
+:[range]GoSaveTool case {op}                            *:GoSaveTool-case*
+        Changes the case of the visual selection (characterwise selections
+        too), the [range] or the current line. {op} is one of:
+        title     The Lord of the Rings
+        sentence  Hello world. How are you?
+        upper     UPPERCASE
+        lower     lowercase
+        slug      olcu-birimi-ceviri
+        camel     bestPostingTime
+        snake     best_posting_time
+        kebab     best-posting-time
+        clean     removes trailing spaces, runs of spaces, extra blank lines
+
+:GoSaveTool to_vtt                                     *:GoSaveTool-to_vtt*
+:GoSaveTool to_srt                                     *:GoSaveTool-to_srt*
+        Opens the subtitles of the buffer converted to WebVTT or SRT in a
+        split, in a new buffer named after the file. Save it with |:w|.
+
+:GoSaveTool shift {seconds}                             *:GoSaveTool-shift*
+        Moves every cue: 1.5 = later, -2 = earlier.
+
+:GoSaveTool repair                                     *:GoSaveTool-repair*
+        Sorts cues, fixes end times before the start and overlapping cues,
+        drops empty cues and renumbers.
+
+:GoSaveTool info                                         *:GoSaveTool-info*
+        Format, number of cues and the end time.
+
+==============================================================================
+LUA                                                          *gosavetool-lua*
+
+require('gosavetool').setup({ keymaps = true })
+        Optional. Maps <leader>gc (count), <leader>gt (Title Case),
+        <leader>gs (Sentence case), <leader>gu (UPPERCASE) and <leader>gl
+        (lowercase) in Normal and Visual mode.
+
+require('gosavetool').statusline()
+        "123 words", for a statusline such as lualine.
+
+require('gosavetool.subtitles') and require('gosavetool.text') are the
+libraries: parse(), convert(), shift(), repair(), stats(), limits(), title()
+and the rest, as in the @gosavetool/subtitles and @gosavetool/text packages.
+
+ vim:tw=78:ts=8:ft=help:norl:
